@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+<form action="/home/user_read/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="id"/>
+    <input type="password" name="pwd"/>
+    <input type="submit"/>
+</form>
+
+
+<!-- 만약 GET으로 하려면 -->
+<!--<form action="/home/user_read" class="">-->
+<!--    <input type="text" name="id"/>-->
+<!--    <input type="text" name="pwd"/>-->
+<!--    <input type="submit"/>-->
+<!--</form>-->
+{% endblock%}

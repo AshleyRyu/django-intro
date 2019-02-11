@@ -43,7 +43,17 @@ def pong(request):
     # <QueryDict: {'message': ['Hi~']}>
     msg = request.GET.get('message')
     return render(request, 'pong.html', {'msg' : msg})
+
+def user_new(request):
+    return render(request, 'user_new.html')
+
+def user_read(request):
+    print(request.POST.get)
+    userid = request.POST.get('id')
+    pwd = request.POST.get('pwd')
+    return render(request, 'user_read.html', {'userid' : userid, 'pwd' : pwd})
     
+
 # import random
 # from django.shortcuts import render, HttpResponse
 
