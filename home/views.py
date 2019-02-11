@@ -33,6 +33,17 @@ def cube(request, num):
     # num = int(num) # url.py 에서 <int:num>로 넘겨주면 생략가능
     return render(request, 'cube.html', {'cube' : num**3})
     
+def ping(request):
+    return render(request, 'ping.html')
+    
+def pong(request):
+    # GET방식으로 넘어오는 것들(일종의 딕셔너리)는 얘가 관리한다!
+    # 실제 찍어본 출력
+    # print(request.GET)
+    # <QueryDict: {'message': ['Hi~']}>
+    msg = request.GET.get('message')
+    return render(request, 'pong.html', {'msg' : msg})
+    
 # import random
 # from django.shortcuts import render, HttpResponse
 

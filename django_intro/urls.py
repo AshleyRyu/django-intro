@@ -23,4 +23,6 @@ urlpatterns = [
     path('home/dinner/', views.dinner),
     path('home/you/<name>/', views.you),
     path('home/cube/<int:num>/', views.cube),
+    path('home/ping/', views.ping),
+    path('home/pong/', views.pong),
 ]
