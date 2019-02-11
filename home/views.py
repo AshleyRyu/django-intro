@@ -21,6 +21,6 @@ def dinner(request):
     
     # return HttpResponse(dinner)
     # return render(request, 'dinner.html') # dinner.html 렌더링해주기
-    return render(request, 'dinner.html', {'dinner' : dinner}) #인자 넘겨주기
+    return render(request, 'dinner.html', {'dinner' : dinner}, {'box' : box}) #인자 넘겨주기
     # template는 기본적로 문법이 jinja2랑 비슷한데 장고에서는 DTL을 쓴다.
     # dDjango Template Language

@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <!--<h1>장고장고~</h1>-->
-    <!--<a href="/home/dinner">저녁메뉴 ㅊㅊ받기</a>-->
+
+{% extends 'base.html' %}
+{% block title %} 장고 실습 {% endblock %}
+{% block body %}
     <p>{{dinner}}</p>
-</body>
-</html>
+{% endblock %}
