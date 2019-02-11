@@ -8,8 +8,6 @@
    $ django-admin startproject 프로젝트이름
    ```
 
-   ![before admin](/image/django_projet_init.PNG)
-
    아래와 같이 프로젝트 구조가 만들어진다.
 
    ```bash
