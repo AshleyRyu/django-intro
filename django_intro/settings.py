@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', #앞으로 트레일링을 해주자
+    'home', # 내가 만든 앱도 관리해줘 !
 ]
 
 MIDDLEWARE = [
