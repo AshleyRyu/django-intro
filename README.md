@@ -192,4 +192,28 @@ def index(request):
    </h1>
    ```
 
-   
+## 4. Variable Routing
+
+1. url 설정
+
+   ```python
+   path('home/you/<name>', views,you),
+   path('home/cube/<int:num>', views.cube),
+   ```
+
+2. view 파일 설정
+
+   ```python
+   def you(request, name):
+       return render(request, 'you.html', {'name' : name})
+   ```
+
+   넘겨줄 변수가 두개 이상이면 dict에 넣으면 된다 (ex. {'name' : name, 'age' : age})
+
+3. 템플릿 파일 설정
+
+   ```django
+   <h1>
+       {{name}}아, 안녕 !
+   </h1>
+   ```

@@ -3,4 +3,7 @@
 {% block title %} 장고 실습 {% endblock %}
 {% block body %}
     <p>{{dinner}}</p>
+    {% for menu in box %}
+    <p>{{menu}}</p>
+    {% endfor %}
 {% endblock %}
