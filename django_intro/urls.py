@@ -21,7 +21,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', include('home.site.urls')),
+    path('home/', include('home.urls')),
+    path('utilities/', include('utilities.urls')),
     # 요청이 home/으로 오면, home/urls.py으 ㅣ설정들에 맞춰 뷰로 보내준다.
     # path('home/', include('home.urls')),
 #     path('home/', views.index),
