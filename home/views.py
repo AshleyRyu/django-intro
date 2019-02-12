@@ -62,6 +62,8 @@ def template_example(request):
     now = datetime.datetime.now()
     return render(request, 'template_example.html', {'my_dict' : my_dict, 'my_list' : my_list, 'my_sentence' : my_sentence, 'messages' : messages, 'now' : now})
 
+def static_example(request):
+    return render(request, 'static_example.html')
 # import random
 # from django.shortcuts import render, HttpResponse
 

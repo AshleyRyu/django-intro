@@ -28,4 +28,5 @@ urlpatterns = [
     path('home/user_new/', views.user_new),
     path('home/user_read/', views.user_read),
     path('home/template_example/', views.template_example),
+    path('home/static_example/', views.static_example),
 ]
