@@ -8,8 +8,6 @@
    $ django-admin startproject 프로젝트이름
    ```
 
-   ![before admin](/image/django_projet_init.PNG)
-
    아래와 같이 프로젝트 구조가 만들어진다.
 
    ```bash
@@ -70,11 +68,13 @@
 >
 > **일반적으로 MVC패턴으로 더 많이 사용한다.**
 >
-> 장고 구조
+>(참고) 장고 구조
 >
+>  ```
 >  ├── project
 >  │ ├── app1
 >  │ └── app2
+>  ```
 
 ### 1. 기본로직
 
