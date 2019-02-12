@@ -217,3 +217,270 @@ def index(request):
        {{name}}아, 안녕 !
    </h1>
    ```
+      
+
+form 의 액션이 자기가 아니라 내 DB에 들어노는 거라서 필요정보만 저장하기 때문에 token값 필요.
+
+`{% csrf_token %}` 추가해야함.
+
+안그렇다면 에러가 뜬다.
+
+![1549866182623](image/1549866182623.png)
+
+## 5. Form data
+
+1. `ping` 설정
+
+   1. 요청 url 설정
+
+      ```python
+      path('home/ping/', views.ping)
+      ```
+
+      
+
+   2. view 설정
+
+      ```python
+      def ping(request):
+          return render(request, 'ping.html')
+      ```
+
+      
+
+   3. template 설정 pong/ 슬래시 꼭 필요
+
+      ```django
+      <form action="/home/pong/">
+          <input name="message" type="text">
+          <input type="submit"
+      </form>
+      ```
+
+      
+
+2. `pong`
+
+   1. 요청 url 설정
+
+      ```python
+      path('home/pong/', views.pong)
+      ```
+
+      
+
+   2. view 설정
+
+      ```python
+      def pong(request):
+          message = request.GET.get('message')
+          return render(requret, 'pong.html', {'message':message})
+      ```
+
+   3. template 설정
+
+      ```django
+      <h1>
+          {{message}}
+      </h1>
+      ```
+
+      
+
+3. POST 요청처리
+
+   1. 요청 FORM 수정
+
+      ```django
+      <form action="/home/pong/" method="POST">
+          {% csrf_token %}
+      </form>
+      ```
+
+      
+
+   2. view 수정
+
+      ```python
+      def pong(request):
+          message = request.POST.get('message')
+      ```
+
+      + `csrf_token`은 보안을 위해 django에서 기본적으로 설정되어 있는 것이다.
+        + form을 통해 POST요청을 보낸다는 것은 데이터베이스에 반영되는 경우가 대부분인데, 해당 요청을 우리가 만든 정해진 form에서 보내는지 검증하는 것
+        + 실제로 input type hidden으로 특정한 hash값이 담겨 있는 것을 볼 수 있다.
+        + `settings.py`에  `MIDDLEWARE` 설정에 보면 csrf 관련된 내용이 설정된 것을 볼 수 있다.
+
+
+## 6. static file 관리
+
+> 정적 파일(image, css, js)을 서버에서 저장이 되어있을 떄, 이를 각각의 템플릿에 불러오는 방법
+
+### 디렉토리 구조
+
+디렉토리 구조는 `home/static/home/`으로 구성된다.
+
+이 디렉토리 설정은 `settings.py`의 가장 하단에 `STATIC_URL`에 맞춰서 해야한다. (기본 `/static`)
+
+1. 파일 생성
+   `home/static/home/image/1.jpg`
+   `home/stylesheets/style.css`
+
+2. 템플릿 활용
+
+   ```django
+   {% extends 'base.html' %}
+   {% load static %}
+   {% block css%}
+   <link rel="stylesheets" type="text/css" href="{% static 'home/style.css' %}"
+   {% endblock %}
+   {% block body %}
+   <img src="{% static 'images/1.jpg' %}">
+   {% endblock %}
+   ```
+
+
+
+## 7. URL 설정 분리
+
+> 위와 같이 코드를 짜는 경우에, `django_intro/urls.py`에 모든 url정보가 담기게 된다.
+>
+> 일반적으로 Django 어플리케이션에서 url을 설정하는 방법은 app 별로 `urls.py`를 구성하는 것이다.
+
+1. `django_intro/urls.py` 
+
+   ```python
+   from django.contrib import admin
+   from django.urls import path, include
+   
+   urlpatterns = [
+       path('admin/', admin.site.urls),
+       path('home/'. include('home/urls'))
+   ]
+   ```
+
+   + `include`를 통해 `app/urls.py`에 설정된 url을 포함한다
+
+2. `home/urls.py`
+
+   ```python
+   from django.urls import path
+   # views 는 home/views.py
+   from . import views
+   urlpatterns = [
+       path('', views.index),
+   ]
+   
+   ```
+
+   + `home/views.py` 파일에서 `index`를 호출하는 url은 `http://<host>/`이 아니라, `http://<host>/home`이다.
+
+3. 
+
+## 8. Template 폴더 설정
+
+디렉토리 구조는 `home/templates/home/`으로 구성된다.
+
+이 디렉토리 설정은 `settings.py`의 가장 하단에 `STATIC_URL`에 맞춰서 해야한다. (기본 `/templates`)
+
+
+
+```python
+# from settings.py
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'django_intro', 'templates')],
+        # 'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+```
+
++ `DIRS` templated를 커스텀하여 경로를 설정할 수 ㅣㅇㅆ다.
+
+  + 경로 설정
+
+    ```python
+    'DIRS'[os.path.join(BASE_DIR, 'django_intro', 'templates')]
+    # => PROJECT1/django_intro/templates
+    ```
+
++ `APP_DIRS`: `INSTALLED_APPS`에 설정된 `app`의 디렉토리에 있는 `templates`를 템플릿으로 활용한다.(True로 설정되었기 때문에)
+
+1. 활용 예시	
+
+   ```python
+   # home/views.py
+   def index(request):
+       return render(request, 'home/index.html')
+   ```
+
+   ```bash
+   
+   ├── home
+   │   ├── admin.py
+   │   ├── apps.py
+   │   ├── migrations
+   │   │   ├── __init__.py
+   │   │   └── __pycache__
+   │   │       └── __init__.cpython-36.pyc
+   │   ├── models.py
+   │   ├── static
+   │   │   └── home
+   │   │       ├── 1.jpg
+   │   │       └── style.css
+   │   ├── templates
+   │   │   └── home
+   │   │       ├── cube.html
+   │   │       ├── dinner.html
+   │   │       ├── index.html
+   │   │       ├── ping.html
+   │   │       ├── pong.html
+   │   │       ├── static_example.html
+   │   │       ├── template_example.html
+   │   │       ├── user_new.html
+   │   │       ├── user_read.html
+   │   │       └── you.html
+   │   ├── tests.py
+   │   ├── urls.py
+   │   └── views.py
+   ├── image
+   │   ├── after_startapp.PNG
+   │   ├── before_startapp.PNG
+   │   ├── django_first_runserver.PNG
+   │   ├── django_projet_init-1.PNG
+   │   └── django_projet_init.PNG
+   ├── manage.py
+   └── utilities
+       ├── __init__.py
+       ├── __pycache__
+       │   ├── __init__.cpython-36.pyc
+       │   ├── admin.cpython-36.pyc
+       │   ├── models.cpython-36.pyc
+       │   ├── urls.cpython-36.pyc
+       │   └── views.cpython-36.pyc
+       ├── admin.py
+       ├── apps.py
+       ├── migrations
+       │   ├── __init__.py
+       │   └── __pycache__
+       │       └── __init__.cpython-36.pyc
+       ├── models.py
+       ├── templates
+       │   └── utilities
+       │       └── index.html
+       ├── tests.py
+       ├── urls.py
+       └── views.py
+   ```
+
