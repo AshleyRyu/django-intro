@@ -52,7 +52,13 @@ def user_read(request):
     userid = request.POST.get('id')
     pwd = request.POST.get('pwd')
     return render(request, 'user_read.html', {'userid' : userid, 'pwd' : pwd})
-    
+
+def template_example(request):
+    my_dict = {"name" : 'ryu', 'nickname' : 'ashley', 'age': 26}
+    my_list = ['짜장면', '짬뽕', '탕수육', '군만두']
+    my_sentence = 'Life is short, you need python!'
+    messages = ['apple', 'banana', 'cucumber', 'mango']
+    return render(request, 'template_example.html', {'my_dict' : my_dict, 'my_list' : my_list, 'my_sentence' : my_sentence, 'messages' : messages})
 
 # import random
 # from django.shortcuts import render, HttpResponse

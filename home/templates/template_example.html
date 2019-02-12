@@ -1,0 +1,56 @@
+<p>1. 반복문</p>
+{% for menu in my_list %}
+    {{ forloop.counter }} 
+    {% if forloop.first %}
+        <p>짜장맨 + 고추가루</p>
+    {% else %}
+        <p>{{ menu }}</p>
+    {% endif %}
+{% endfor %}
+<hr>
+<p>2. 조건문</p>
+{% if '짜장면' in my_list %}
+    <p>짜장면은 고춧가루가 있어야 제맛</p>
+{% endif %}
+<hr>
+{% for message in messages %}
+    {% if message|length > 5 %}
+        <p>글씨가 너무 길어요</p>
+    {% else %}
+        <p>{{message}}, {{message|length}}</p>
+    {% endif %}
+{% endfor %}
+<hr>
+<p>4. lorem ipsum : 함수이므로 % %주의하자</p>
+{% lorem %}
+<hr>
+{% lorem 3 w %}
+<hr>
+{% lorem 4 w random%}
+<hr>
+{% lorem 4 p %}
+<hr>
+<p>5. 글자수 제한하기 (truncate) </p>
+<p>{{ my_sentence|truncatewords:3 }} </p>
+<p>{{ my_sentence|truncatechars:10 }}</p>
+<hr>
+<p>6. 글자 관련 필터</p>
+<p>{{ 'ABC'|lower }}</p>
+<p>{{ my_sentence|length }}</p>
+<p>{{ my_sentence|title }}</p>
+<p>{{ 'abc def. hi'|capfirst }}</p>
+<p>리스트 랜덤 : {{ my_list|random }}</p>
+<hr>
+<p>7. 연산</p>
+<p>{{ 4|add:6 }}</p>
+<hr>
+<p>8. 날자표현</p>
+{{ now }} <br>
+{% now "SHORT_DATETIME_FORMAT" %} <br>
+{% now "DATETIME_FORMAT" %} <br>
+{% now "TIME_FORMAT" %} <br>
+{% now "DATE_FROMAT" %} <br>
+{% now "Y년 m월 d일 (1) h:i "%}
+<!-- datetime안써도 now는 django 내장함수 -->
+<hr>
+<!--<p>9.</p>-->
