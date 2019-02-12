@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 import random
+import datetime
 
 # Create your views here.
 def index(request):
@@ -58,7 +59,8 @@ def template_example(request):
     my_list = ['짜장면', '짬뽕', '탕수육', '군만두']
     my_sentence = 'Life is short, you need python!'
     messages = ['apple', 'banana', 'cucumber', 'mango']
-    return render(request, 'template_example.html', {'my_dict' : my_dict, 'my_list' : my_list, 'my_sentence' : my_sentence, 'messages' : messages})
+    now = datetime.datetime.now()
+    return render(request, 'template_example.html', {'my_dict' : my_dict, 'my_list' : my_list, 'my_sentence' : my_sentence, 'messages' : messages, 'now' : now})
 
 # import random
 # from django.shortcuts import render, HttpResponse

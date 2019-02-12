@@ -45,7 +45,7 @@
 <p>{{ 4|add:6 }}</p>
 <hr>
 <p>8. 날자표현</p>
-{{ now }} <br>
+datetime 출력 : {{ now }} <br>
 {% now "SHORT_DATETIME_FORMAT" %} <br>
 {% now "DATETIME_FORMAT" %} <br>
 {% now "TIME_FORMAT" %} <br>
@@ -53,4 +53,6 @@
 {% now "Y년 m월 d일 (1) h:i "%}
 <!-- datetime안써도 now는 django 내장함수 -->
 <hr>
+{{ datetime|date:"SHORT_DATETIME_FORMAT" }}
+{{ 'http://google.com'|urlize }}
 <!--<p>9.</p>-->
